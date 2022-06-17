@@ -1,0 +1,7 @@
+npm init
+npm install express cors ejs mongodb dotenv
+npm install --save-dev nodemon
+
+then add    "dev": "nodemon server.js"     to scripts in package.json
+
+run npm run dev to start live local server
