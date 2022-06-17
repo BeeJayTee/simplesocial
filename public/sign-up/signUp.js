@@ -24,6 +24,9 @@ const signUpUser = () => {
             .then(data => {
                 if (data === 'email already exists') {
                     document.querySelector('#formMessage').textContent = "An account with that email already exists."
+                } else {
+                    localStorage.setItem('id', data)
+                    location.assign('/home')
                 }
             })
     } else {

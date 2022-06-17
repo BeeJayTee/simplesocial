@@ -7,17 +7,18 @@ const dbHash = process.env.DB_HASH
 const dbUsername = process.env.USERNAME
 const connectionString = `mongodb+srv://${dbUsername}:${dbHash}@users.2kn8x.mongodb.net/?retryWrites=true&w=majority`
 const PORT = 8000
-let message = ''
-let loggedInEmail = ''
-let loggedInId = ''
 
 MongoClient.connect(connectionString)
     .then(client => {
         console.log('Connected to Database')
         // create db name
-        const db = client.db('users')
+        const usersDb = client.db('users')
         // create collection name
-        const collection = db.collection('user-list')
+        const usersCollection = usersDb.collection('user-list')
+
+        // create posts database and posts collection
+        const postsDb = client.db('posts')
+        const poststCollection = postsDb.collection('post')
 
         // set view engine to ejs
         app.set('view engine', 'ejs')
@@ -38,23 +39,40 @@ MongoClient.connect(connectionString)
         app.post('/sign-up', (req, res) => {
             const email = req.body.email
             const password = req.body.password
-            collection.find().toArray()
+            usersCollection.find().toArray()
                 .then(data => {
                     if (data.map(user => user.email).includes(email)) {
                         res.json('email already exists')
                     } else {
-                        collection.insertOne(
+                        usersCollection.insertOne(
                             {
                                 email: email,
-                                password: password
+                                password: password,
+                                posts: []
                             }
                         )
                         .then(response => {
-                            console.log(ObjectId(response.insertedId).toString())
+                            const id = (ObjectId(response.insertedId).toString())
+                            res.json(id)
                         })
                     }
                 })
         })
+
+        app.get('/home', (req, res) => {
+            res.render('home.ejs')
+        })
+
+
+        app.post('/home', (req, res) => {
+            console.log(req.body)
+            usersCollection.findOne({ _id: ObjectId(req.body.id) })
+                .then(response => {
+                    console.log(response)
+                })
+        })
+
+
 
 
 
