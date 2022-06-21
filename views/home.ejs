@@ -4,20 +4,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
     <title>SimpleSocial</title>
 </head>
 <body>
     <script src="/home/checkIdHome.js"></script>
 
-    <h1>Welcome to Home</h1>
-    <div class="form-section">
-        <form action="/post" method="post" id="postForm">
-            <textarea name="postContent" id="postContent" cols="30" rows="10" style="resize: none;"></textarea><br>
-            <a id="postSubmitButton">Send Post</a>
-        </form>
+    <div class="header">
+        <h1>Simple Social</h1>
+        <a class="logout">logout</a>
     </div>
-    <div class="posts-section">
-        <p>posts go here</p>
+    <div class="main-container">
+        <div class="form-section">
+            <form action="/post" method="post" id="postForm">
+                <textarea name="postContent" id="postContent" placeholder="say something..."></textarea><br>
+                <div class="submitButtonContainer">
+                    <a id="postSubmitButton">Send Post</a>
+                </div>
+            </form>
+        </div>
+        <div class="posts-section">
+            <% postList.forEach(post => { %>
+                <div class="post">
+                    <p class="mainPostContent"><%= post.content %></p>
+                    <p class="mainPostAuthor"><%= post.userEmail %></p>
+                </div>
+            <% }) %>
+        </div>
     </div>
 
 

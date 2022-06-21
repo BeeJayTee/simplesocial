@@ -60,7 +60,11 @@ MongoClient.connect(connectionString)
         })
 
         app.get('/home', (req, res) => {
-            res.render('home.ejs')
+            poststCollection.find().toArray()
+                .then(postArr => {
+                    const postList = postArr.reverse().slice(0, 11)
+                    res.render('home.ejs', { postList: postList })
+                })
         })
 
 
@@ -73,17 +77,22 @@ MongoClient.connect(connectionString)
 
 
         app.post('/send-post', (req, res) => {
-            console.log(req.body)
-            poststCollection.insertOne(
-                {
-                    date: new Date().toString(),
-                    content: req.body.post,
-                    user: req.body.userId
-                }
-            )
+            usersCollection.findOne({ _id: ObjectId(req.body.userId) })
                 .then(response => {
-                    res.json()
+                    const userEmail = response.email
+                    poststCollection.insertOne(
+                        {
+                            date: new Date().toString(),
+                            content: req.body.post,
+                            user: req.body.userId,
+                            userEmail: userEmail
+                        }
+                    )
+                        .then(response => {
+                            res.json()
+                        })
                 })
+            
         })
 
 

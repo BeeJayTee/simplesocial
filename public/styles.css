@@ -1,1 +1,81 @@
 /* main style file */
+:root {
+    --mainBlue: rgb(152, 152, 255);
+    --darkerBlue: rgb(134, 134, 226);
+}
+
+* {
+    font-family: 'Fira Sans', sans-serif;
+    box-sizing: border-box;
+}
+
+/* home.ejs */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
+.logout:hover {
+    color: var(--darkerBlue);
+    cursor: pointer;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-section {
+    margin-bottom: 2rem;
+}
+
+#postContent {
+    border: 5px solid rgb(152, 152, 152);
+    border-radius: 5px;
+    padding: .5rem 1rem;
+    margin-bottom: 25px;
+    resize: none;
+    width: 35vw;
+    font-size: 1.25rem;
+}
+
+#postContent:focus {
+    border: 5px solid var(--mainBlue);
+    border-radius: 5px;
+    outline: none;
+}
+
+.submitButtonContainer {
+    text-align: right;
+}
+
+#postSubmitButton {
+    background: var(--mainBlue);
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    padding: .5rem 1rem;
+    font-weight: 600;
+}
+
+#postSubmitButton:hover {
+    cursor: pointer;
+    background: var(--darkerBlue);
+
+}
+
+.post {
+    border: 5px solid rgb(244, 244, 244);
+    border-radius: 5px;
+    width: 35vw;
+    margin: 25px;
+    padding: .5rem 1.5rem;
+}
+
+.mainPostAuthor {
+    text-align: right;
+    opacity: .5;
+}

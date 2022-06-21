@@ -1,4 +1,5 @@
 const postSubmitButton = document.querySelector('#postSubmitButton')
+const postTextInput = document.querySelector('#postContent')
 
 
 
@@ -17,12 +18,16 @@ const handlePostSubmit = () => {
         )
     })
         .then(response => {
-            console.log(response)
-            return response.json()
-        })
-        .then(data => {
-            conseol.log(data)
+            if (response.ok) {
+                location.reload()
+            }
         })
 }
 
 postSubmitButton.addEventListener('click', handlePostSubmit)
+postTextInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        postTextInput.style['caret-color'] = 'transparent'
+        handlePostSubmit()
+    }
+})
