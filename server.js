@@ -18,7 +18,7 @@ MongoClient.connect(connectionString)
 
         // create posts database and posts collection
         const postsDb = client.db('posts')
-        const poststCollection = postsDb.collection('post')
+        const poststCollection = postsDb.collection('posts')
 
         // set view engine to ejs
         app.set('view engine', 'ejs')
@@ -82,7 +82,7 @@ MongoClient.connect(connectionString)
                 }
             )
                 .then(response => {
-                    console.log(response)
+                    res.json()
                 })
         })
 
