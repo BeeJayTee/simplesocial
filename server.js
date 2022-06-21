@@ -65,8 +65,22 @@ MongoClient.connect(connectionString)
 
 
         app.post('/home', (req, res) => {
-            console.log(req.body)
             usersCollection.findOne({ _id: ObjectId(req.body.id) })
+                .then(response => {
+                    console.log(response)
+                })
+        })
+
+
+        app.post('/send-post', (req, res) => {
+            console.log(req.body)
+            poststCollection.insertOne(
+                {
+                    date: new Date().toString(),
+                    content: req.body.post,
+                    user: req.body.userId
+                }
+            )
                 .then(response => {
                     console.log(response)
                 })

@@ -4,14 +4,18 @@ const postSubmitButton = document.querySelector('#postSubmitButton')
 
 const handlePostSubmit = () => {
     const postContent = document.querySelector('#postContent').value
-    console.log(postContent)
-    // fetch('/send-post', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON
-    // })
+    fetch('/send-post', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(
+            {
+                post: postContent,
+                userId: localStorage.getItem('id')
+            }
+        )
+    })
 }
 
 postSubmitButton.addEventListener('click', handlePostSubmit)
